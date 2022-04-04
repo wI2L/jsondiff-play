@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <link href="/favicon.ico" rel="icon"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>JSONDiff Playground</title>
+    </head>
+    <body class="overflow-hidden subpixel-antialiased">
+        <div id="app"></div>
+        <script src="/wasm_exec.js"></script>
+        <script>
+            if (!WebAssembly.instantiateStreaming) { // polyfill
+                WebAssembly.instantiateStreaming = async (resp, importObject) => {
+                    const source = await (await resp).arrayBuffer();
+                    return await WebAssembly.instantiate(source, importObject)
+                }
+            }
+            const go = new Go();
+            WebAssembly.instantiateStreaming(fetch("/jsondiff.wasm"), go.importObject).then((result) => {
+                go.run(result.instance)
+            }).catch((err) => {
+                console.error(err)
+            })
+        </script>
+        <script src="/src/main.ts" type="module"></script>
+    </body>
+</html>
