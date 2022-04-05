@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <style>
+            .dark {
+                display: inline-block;
+                background: linear-gradient(105deg, transparent 0%, transparent 0%), url('light.png');
+                border: 5px solid #000;
+            }
+            img {
+                display: block;
+                clip-path: polygon(0 0, 100% 0, 100% 15%, 0 85%);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="dark">
+            <img src="dark.png">
+        </div>
+    </body>
+</html>

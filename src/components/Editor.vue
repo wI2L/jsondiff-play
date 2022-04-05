@@ -84,28 +84,28 @@
                 <div class="w-full px-6 py-4 flex justify-end space-x-4 text-sm dark:text-white h-[62px] overflow-auto border-b-2 dark:border-b-[#1f2834] border-b-[#eeeeed]">
                     <div class="flex items-center">
                         <label class="pr-2">Invertible</label>
-                        <Switch v-model="params.invertible" :class="params.invertible ? 'bg-blue-400' : 'bg-[#515C6E]'" class="relative inline-flex items-center h-4 rounded-full w-11">
+                        <Switch v-model="params.invertible" :class="params.invertible ? 'bg-blue-400' : 'bg-[#515C6E]'" class="inline-flex items-center h-4 rounded-full w-11">
                             <span class="sr-only">Invertible</span>
                             <span aria-hidden="true" :class="params.invertible ? 'translate-x-6' : 'translate-x-1'" class="inline-block w-4 h-3 transform bg-white rounded-full transition duration-200 ease-in-out transform" />
                         </Switch>
                     </div>
                     <div class="flex items-center">
                         <label class="pr-2">Factorize</label>
-                        <Switch v-model="params.factorize" :class="params.factorize ? 'bg-blue-400' : 'bg-[#515C6E]'" class="relative inline-flex items-center h-4 rounded-full w-11">
+                        <Switch v-model="params.factorize" :class="params.factorize ? 'bg-blue-400' : 'bg-[#515C6E]'" class="inline-flex items-center h-4 rounded-full w-11">
                             <span class="sr-only">Factorize</span>
                             <span aria-hidden="true" :class="params.factorize ? 'translate-x-6' : 'translate-x-1'" class="inline-block w-4 h-3 transform bg-white rounded-full transition duration-200 ease-in-out transform" />
                         </Switch>
                     </div>
                     <div class="flex items-center">
                         <label class="pr-2">Rationalize</label>
-                        <Switch v-model="params.rationalize" :class="params.rationalize ? 'bg-blue-400' : 'bg-[#515C6E]'" class="relative inline-flex items-center h-4 rounded-full w-11">
+                        <Switch v-model="params.rationalize" :class="params.rationalize ? 'bg-blue-400' : 'bg-[#515C6E]'" class="inline-flex items-center h-4 rounded-full w-11">
                             <span class="sr-only">Rationalize</span>
                             <span aria-hidden="true" :class="params.rationalize ? 'translate-x-6' : 'translate-x-1'" class="inline-block w-4 h-3 transform bg-white rounded-full transition duration-200 ease-in-out transform" />
                         </Switch>
                     </div>
                     <div class="flex items-center">
                         <label class="pr-2">Equivalent</label>
-                        <Switch v-model="params.equivalent" :class="params.equivalent ? 'bg-blue-400' : 'bg-[#515C6E]'" class="relative inline-flex items-center h-4 rounded-full w-11">
+                        <Switch v-model="params.equivalent" :class="params.equivalent ? 'bg-blue-400' : 'bg-[#515C6E]'" class="inline-flex items-center h-4 rounded-full w-11">
                             <span class="sr-only">Equivalent</span>
                             <span aria-hidden="true" :class="params.equivalent ? 'translate-x-6' : 'translate-x-1'" class="inline-block w-4 h-3 transform bg-white rounded-full transition duration-200 ease-in-out transform" />
                         </Switch>
