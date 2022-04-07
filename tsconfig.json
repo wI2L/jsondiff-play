@@ -18,14 +18,19 @@
         "lib": [
             "esnext",
             "dom"
-        ]
+        ],
+        "paths": {
+            "@/*": [
+                "./src/*",
+                "./dist/*"
+            ]
+        }
     },
     "include": [
         "src/**/*.ts",
         "src/**/*.d.ts",
         "src/**/*.tsx",
-        "src/**/*.vue",
-        "wasm/@types/jsondiff/index.d.ts"
+        "src/**/*.vue"
     ],
     "exclude": [
         "node_modules",

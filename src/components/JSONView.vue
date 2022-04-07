@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { computed, toRefs } from 'vue'
-    import JSONViewItem from './JSONViewItem.vue'
-    import { TreeNode } from './@types/TreeNode'
+    import JSONViewItem from '@/components/JSONViewItem.vue'
+    import TreeNode from '@/@types/TreeNode'
 
     interface Props {
         data: any

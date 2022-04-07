@@ -1,4 +1,4 @@
-export interface TreeNode {
+export default interface TreeNode {
     key: string
     type: string
     path: string

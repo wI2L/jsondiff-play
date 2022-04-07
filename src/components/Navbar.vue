@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { useToggle } from '@vueuse/shared'
-    import useDarkGlobal from '../utils/dark'
+    import useDarkGlobal from '@/utils/dark'
 
     const isDark = useDarkGlobal()
     const toggleDark = useToggle(isDark)
@@ -11,7 +11,7 @@
         <div class="px-6 py-4 mx-auto flex justify-between items-center h-full">
             <div class="flex items-center justify-between">
                 <div>
-                    <a class="text-lg font-['Lato'] font-semibold text-gray-900 dark:text-white" href="#">JSONDiff Playground</a>
+                    <a class="text-lg font-lato font-semibold text-gray-900 dark:text-white" href="#">JSONDiff Playground</a>
                 </div>
             </div>
             <div class="flex justify-center lg:flex lg:mt-0 lg:-mx-2">

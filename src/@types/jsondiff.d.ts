@@ -1,4 +1,3 @@
-// noinspection JSUnusedGlobalSymbols
 declare function jsondiffCompare(
     source: string,
     target: string,
@@ -6,4 +5,7 @@ declare function jsondiffCompare(
     factorize: boolean,
     rationalize: boolean,
     equivalent: boolean,
-): { error: string, patch: string }
+): {
+    error: string,
+    patch: string
+}

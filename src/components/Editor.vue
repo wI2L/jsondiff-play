@@ -4,11 +4,11 @@
     import { Switch } from '@headlessui/vue'
 
     import Split from 'split.js'
-    import MonacoEditor from './MonacoEditor.vue'
-    import JSONView from './JSONView.vue'
+    import MonacoEditor from '@/components/MonacoEditor.vue'
+    import JSONView from '@/components/JSONView.vue'
 
-    import source from '../examples/source.json'
-    import target from '../examples/target.json'
+    import source from '@/examples/source.json'
+    import target from '@/examples/target.json'
 
     const sourceName = "source"
     const targetName = "target"

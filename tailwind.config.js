@@ -1,9 +1,16 @@
-const plugin = require("tailwindcss/plugin");
+const plugin = require("tailwindcss/plugin")
 
 module.exports = {
     mode: ['jit'],
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     darkMode: 'class',
+    theme: {
+        extend: {
+            fontFamily: {
+                'lato': ['Lato', 'sans-serif']
+            },
+        },
+    },
     plugins: [
         plugin(function ({ addUtilities, matchUtilities, theme }) {
             const scrollbarTrackColorValue = (value) => ({
@@ -17,20 +24,20 @@ module.exports = {
                 '&::-webkit-scrollbar-track': {
                     "border-radius": value
                 }
-            });
+            })
 
             const scrollbarThumbColorValue = (value) => ({
                 '--scrollbar-thumb': value,
                 '&::-webkit-scrollbar-thumb': {
                     "background-color": value
                 }
-            });
+            })
 
             const scrollbarThumbRoundedValue = (value) => ({
                 '&::-webkit-scrollbar-thumb': {
                     "border-radius": value
                 }
-            });
+            })
 
             addUtilities({
                 '.scrollbar': {
@@ -46,7 +53,7 @@ module.exports = {
                     '--scrollbar-width': '8px',
                     'scrollbar-width': 'thin'
                 }
-            });
+            })
 
             Object.entries(theme('colors')).forEach(([colorName, color]) => {
                 switch (typeof color) {
@@ -60,21 +67,21 @@ module.exports = {
                               values: color
                           }
                         )
-                        break;
+                        break
                     case 'function':
                         addUtilities({
                             [`.scrollbar-track-${colorName}`]: scrollbarTrackColorValue(color({})),
                             [`.scrollbar-thumb-${colorName}`]: scrollbarThumbColorValue(color({}))
                         })
-                        break;
+                        break
                     case 'string':
                         addUtilities({
                             [`.scrollbar-track-${colorName}`]: scrollbarTrackColorValue(color),
                             [`.scrollbar-thumb-${colorName}`]: scrollbarThumbColorValue(color)
                         })
-                        break;
+                        break
                 }
-            });
+            })
 
             matchUtilities(
               {
@@ -87,4 +94,4 @@ module.exports = {
             )
         })
     ]
-};
+}
