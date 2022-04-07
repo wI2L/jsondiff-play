@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { useToggle } from '@vueuse/shared'
-    import { useDarkGlobal } from '../utils/dark'
+    import useDarkGlobal from '../utils/dark'
 
     const isDark = useDarkGlobal()
     const toggleDark = useToggle(isDark)

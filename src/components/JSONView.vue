@@ -7,15 +7,13 @@
         data: any
         rootKey?: string
         maxDepth?: number
-        colorScheme?: string
     }
 
     const props = withDefaults(defineProps<Props>(), {
         rootKey: 'root',
-        maxDepth: 1,
-        colorScheme: 'light'
+        maxDepth: 1
     })
-    const { data, rootKey, maxDepth, colorScheme } = toRefs(props)
+    const { data, rootKey, maxDepth } = toRefs(props)
 
     const parsed = computed(() => {
         if (typeof props.data === 'object') {
@@ -80,28 +78,26 @@
 </script>
 
 <template>
-    <JSONViewItem :class="[{ 'root-item': true, dark: colorScheme === 'dark' }]" :data="parsed" :max-depth="maxDepth" />
+    <div class="json-tree">
+        <JSONViewItem class="root" :data="parsed" :max-depth="maxDepth" />
+    </div>
 </template>
 
-
-<!--suppress CssUnusedSymbol -->
-<style lang="scss" scoped>
-.root-item {
-    --vjc-key-color: #0977e6;
-    --vjc-valueKey-color: #073642;
-    --vjc-string-color: #268bd2;
-    --vjc-number-color: #2aa198;
-    --vjc-boolean-color: #cb4b16;
-    --vjc-null-color: #6c71c4;
-    --vjc-arrow-size: 6px;
-    --vjc-arrow-color: #444;
-    --vjc-hover-color: rgba(0, 0, 0, 0.2);
-}
-
-.root-item.dark {
-    --vjc-key-color: #80d8ff;
-    --vjc-valueKey-color: #fdf6e3;
-    --vjc-hover-color: rgba(255, 255, 255, 0.2);
-    --vjc-arrow-color: #fdf6e3;
+<style lang="scss">
+:root {
+  --vjc-key-color: #000000;
+  --vjc-valueKey-color: #a31515;
+  --vjc-string-color: #0451a5;
+  --vjc-number-color: #098658;
+  --vjc-boolean-color: #0451a5;
+  --vjc-null-color: #0451a5;
+  &.dark {
+    --vjc-key-color: #dcdcdc;
+    --vjc-valueKey-color: #9cdcfe;
+    --vjc-string-color: #ce9178;
+    --vjc-number-color: #b5cea8;
+    --vjc-boolean-color: #ce9178;
+    --vjc-null-color: #ce9178;
+  }
 }
 </style>

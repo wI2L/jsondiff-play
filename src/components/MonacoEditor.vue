@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { onBeforeMount, onMounted, onUnmounted, ref, toRefs, watch } from 'vue'
     import { useStorage, useDebounceFn, useResizeObserver } from '@vueuse/core'
-    import { useDarkGlobal } from '../utils/dark'
+    import useDarkGlobal from '../utils/dark'
 
     import { editor as editorapi } from "monaco-editor/esm/vs/editor/editor.api"
     import "monaco-editor/esm/vs/language/json/monaco.contribution.js"

@@ -54,7 +54,7 @@
 </script>
 
 <template>
-    <div class="json-view-item">
+    <div class="item">
         <div v-if="data.type === 'object' || data.type === 'array'" class="expendable">
             <button :aria-expanded="open ? 'true' : 'false'" class="data-key" @click.stop="toggleOpen">
                 <span v-if="open" class="arrow">
@@ -121,7 +121,7 @@
 </template>
 
 <style lang="scss" scoped>
-.json-view-item:not(.root-item) {
+.item:not(.root) {
   margin-left: 35px;
   & > .expendable {
     margin-left: -16px;
