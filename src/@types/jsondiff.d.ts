@@ -4,8 +4,8 @@ declare function jsondiffCompare(
     invertible: boolean,
     factorize: boolean,
     rationalize: boolean,
-    equivalent: boolean,
+    equivalent: boolean
 ): {
-    error: string,
+    error: string
     patch: string
 }

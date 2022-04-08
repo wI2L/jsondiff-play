@@ -3,8 +3,8 @@
     import { useStorage, useDebounceFn, useResizeObserver } from '@vueuse/core'
     import useDarkGlobal from '@/utils/dark'
 
-    import { editor as editorapi } from "monaco-editor/esm/vs/editor/editor.api"
-    import "monaco-editor/esm/vs/language/json/monaco.contribution.js"
+    import { editor as editorapi } from 'monaco-editor/esm/vs/editor/editor.api'
+    import 'monaco-editor/esm/vs/language/json/monaco.contribution.js'
     import nightOwl from '@/themes/night-owl.json'
 
     const isDark = useDarkGlobal()
@@ -14,7 +14,7 @@
     // The 'name' property allows differentiating between
     // editors in the app, either "source" or "target".
     const props = defineProps<{
-        name: string,
+        name: string
         defaultValue: object | []
     }>()
 
@@ -22,17 +22,14 @@
 
     let editor: editorapi.IStandaloneCodeEditor
 
-    const editorContent = useStorage<string>(
-        name.value,
-        JSON.stringify(defaultValue.value, null, 4)
-    )
+    const editorContent = useStorage<string>(name.value, JSON.stringify(defaultValue.value, null, 4))
     const editorObserver = useResizeObserver(container, () => {
         editor.layout()
     })
     const emit = defineEmits<(e: 'change', content: typeof editorContent.value) => void>()
 
-    onBeforeMount(()=> {
-        editorapi.defineTheme("night-owl", nightOwl as editorapi.IStandaloneThemeData)
+    onBeforeMount(() => {
+        editorapi.defineTheme('night-owl', nightOwl as editorapi.IStandaloneThemeData)
     })
 
     onMounted(() => {
@@ -43,11 +40,11 @@
             fontSize: 14,
             fontFamily: 'ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace',
             fontLigatures: false,
-            renderLineHighlight: "none",
+            renderLineHighlight: 'none',
             overviewRulerLanes: 0,
             minimap: {
-                enabled: false
-            }
+                enabled: false,
+            },
         })
         emit('change', editorContent.value)
 
@@ -66,9 +63,7 @@
     })
 
     watch(isDark, (value) => {
-        editorapi.setTheme(
-            value ? 'night-owl' : 'vs'
-        )
+        editorapi.setTheme(value ? 'night-owl' : 'vs')
     })
 
     onUnmounted(() => {

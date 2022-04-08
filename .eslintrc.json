@@ -8,11 +8,13 @@
         "parser": "@typescript-eslint/parser"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "tailwindcss"
     ],
     "extends": [
         "plugin:@typescript-eslint/recommended",
-        "plugin:vue/vue3-recommended"
+        "plugin:vue/vue3-recommended",
+        "plugin:tailwindcss/recommended"
     ],
     "rules": {
         "@typescript-eslint/ban-ts-comment": "off",
@@ -23,11 +25,65 @@
             "error",
             "always"
         ],
+        "vue/singleline-html-element-content-newline": [
+            "error",
+            {
+                "ignoreWhenNoAttributes": true,
+                "ignoreWhenEmpty": true,
+                "ignores": [
+                    "a",
+                    "abbr",
+                    "audio",
+                    "b",
+                    "bdi",
+                    "bdo",
+                    "canvas",
+                    "cite",
+                    "code",
+                    "data",
+                    "del",
+                    "dfn",
+                    "em",
+                    "i",
+                    "iframe",
+                    "ins",
+                    "kbd",
+                    "label",
+                    "map",
+                    "mark",
+                    "noscript",
+                    "object",
+                    "output",
+                    "picture",
+                    "q",
+                    "ruby",
+                    "s",
+                    "samp",
+                    "small",
+                    "span",
+                    "strong",
+                    "sub",
+                    "sup",
+                    "svg",
+                    "time",
+                    "u",
+                    "var",
+                    "video"
+                ]
+            }
+        ],
+        "vue/html-closing-bracket-newline": [
+            "error",
+            {
+                "singleline": "never",
+                "multiline": "never"
+            }
+        ],
         "vue/first-attribute-linebreak": [
             "error",
             {
-                "singleline": "beside",
-                "multiline": "beside"
+                "singleline": "ignore",
+                "multiline": "below"
             }
         ],
         "vue/max-attributes-per-line": [
@@ -37,7 +93,7 @@
                     "max": 10
                 },
                 "multiline": {
-                    "max": 10
+                    "max": 1
                 }
             }
         ],
@@ -56,10 +112,19 @@
             "error",
             4,
             {
-                "baseIndent": 1,
-                "switchCase": 0,
-                "ignores": []
+                "baseIndent": 1
             }
-        ]
-    }
+        ],
+        "tailwindcss/no-custom-classname": "off"
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.vue"
+            ],
+            "rules": {
+                "indent": "off"
+            }
+        }
+    ]
 }

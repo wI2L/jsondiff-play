@@ -7,6 +7,7 @@ A playground for [**wI2L/jsondiff**](https://github.com/wI2L/jsondiff). Supports
 ## Getting started
 
 To run the application locally, first install the dependencies, and launch the development server using the following commands:
+
 ```bash
 $ npm install
 $ npm run dev

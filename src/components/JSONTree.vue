@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { computed, toRefs } from 'vue'
-    import JSONViewItem from '@/components/JSONViewItem.vue'
+    import JSONTreeItem from '@/components/JSONTreeItem.vue'
     import TreeNode from '@/@types/TreeNode'
 
     interface Props {
@@ -11,7 +11,7 @@
 
     const props = withDefaults(defineProps<Props>(), {
         rootKey: 'root',
-        maxDepth: 1
+        maxDepth: 1,
     })
     const { data, rootKey, maxDepth } = toRefs(props)
 
@@ -24,7 +24,7 @@
             type: 'value',
             path: '',
             depth: 0,
-            value: data.value
+            value: data.value,
         } as TreeNode
     })
 
@@ -41,7 +41,7 @@
                 depth: depth,
                 path: path,
                 length: children.length,
-                children: children
+                children: children,
             } as TreeNode
         } else if (isArray(val)) {
             let children = []
@@ -55,7 +55,7 @@
                 depth: depth,
                 path: path,
                 length: children.length,
-                children: children
+                children: children,
             } as TreeNode
         } else {
             return {
@@ -63,7 +63,7 @@
                 type: 'value',
                 path: includeKey ? path + key : path.slice(0, -1),
                 depth: depth,
-                value: val
+                value: val,
             } as TreeNode
         }
     }
@@ -79,25 +79,26 @@
 
 <template>
     <div class="json-tree">
-        <JSONViewItem class="root" :data="parsed" :max-depth="maxDepth" />
+        <JSONTreeItem :data="parsed" :max-depth="maxDepth" class="root" />
     </div>
 </template>
 
 <style lang="scss">
-:root {
-  --vjc-key-color: #000000;
-  --vjc-valueKey-color: #a31515;
-  --vjc-string-color: #0451a5;
-  --vjc-number-color: #098658;
-  --vjc-boolean-color: #0451a5;
-  --vjc-null-color: #0451a5;
-  &.dark {
-    --vjc-key-color: #dcdcdc;
-    --vjc-valueKey-color: #9cdcfe;
-    --vjc-string-color: #ce9178;
-    --vjc-number-color: #b5cea8;
-    --vjc-boolean-color: #ce9178;
-    --vjc-null-color: #ce9178;
-  }
-}
+    :root {
+        --vjc-key-color: #000000;
+        --vjc-valueKey-color: #a31515;
+        --vjc-string-color: #0451a5;
+        --vjc-number-color: #098658;
+        --vjc-boolean-color: #0451a5;
+        --vjc-null-color: #0451a5;
+
+        &.dark {
+            --vjc-key-color: #dcdcdc;
+            --vjc-valueKey-color: #9cdcfe;
+            --vjc-string-color: #ce9178;
+            --vjc-number-color: #b5cea8;
+            --vjc-boolean-color: #ce9178;
+            --vjc-null-color: #ce9178;
+        }
+    }
 </style>
