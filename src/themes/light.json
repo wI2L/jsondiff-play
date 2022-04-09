@@ -1,0 +1,10 @@
+{
+    "base": "vs",
+    "inherit": true,
+    "colors": {
+        "scrollbarSlider.background": "#e5e7eb",
+        "scrollbarSlider.hoverBackground": "#374151",
+        "scrollbarSlider.activeBackground": "#374151"
+    },
+    "rules": []
+}

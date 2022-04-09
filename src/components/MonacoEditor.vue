@@ -1,20 +1,22 @@
 <script setup lang="ts">
     import { onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue'
-    import { useDebounceFn, useResizeObserver, useStorage } from '@vueuse/core'
+    import { useResizeObserver, useStorage } from '@vueuse/core'
     import useDarkGlobal from '@/utils/dark'
 
     import { editor as editorapi } from 'monaco-editor/esm/vs/editor/editor.api'
     import 'monaco-editor/esm/vs/language/json/monaco.contribution.js'
-    import darkTheme from '@/themes/night-owl.json'
+
+    import darkTheme from '@/themes/dark.json'
+    import lightTheme from '@/themes/light.json'
 
     const isDark = useDarkGlobal()
     const container = ref<HTMLDivElement | null>(null)
 
     let editor: editorapi.IStandaloneCodeEditor
 
-    // The 'name' property allows differentiating between
-    // editors in the app, either "source" or "target".
-    // It is also used as the key of the local storage element
+    // The name property allows differentiating
+    // between editors in the app. It is also used
+    // as the key of the local storage element
     // that persist the current editor's value.
     const props = defineProps<{
         name: string
@@ -34,13 +36,14 @@
     }>()
 
     onBeforeMount(() => {
-        editorapi.defineTheme('night-owl', darkTheme as editorapi.IStandaloneThemeData)
+        editorapi.defineTheme('dark', darkTheme as editorapi.IStandaloneThemeData)
+        editorapi.defineTheme('light', lightTheme as editorapi.IStandaloneThemeData)
     })
 
     onMounted(() => {
         editor = editorapi.create(container.value!, {
             language: 'json',
-            theme: isDark.value ? 'night-owl' : 'vs',
+            theme: isDark.value ? 'dark' : 'light',
             scrollBeyondLastLine: false,
             fontSize: 14,
             fontFamily: 'ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace',
@@ -50,7 +53,15 @@
             minimap: {
                 enabled: false,
             },
+            scrollbar: {
+                verticalScrollbarSize: 8,
+                horizontalScrollbarSize: 8
+            }
         })
+        // Emit once the editor is created with the
+        // current stored content, to allow the parent
+        // to compute the patch once it has been mounted.
+        emit('update:modelValue', content.value)
 
         // Initialize a debounced event handler that emit
         // the updated model value when the editor's
@@ -78,7 +89,7 @@
     })
 
     watch(isDark, (value) => {
-        editorapi.setTheme(value ? 'night-owl' : 'vs')
+        editorapi.setTheme(value ? 'dark' : 'light')
     })
 </script>
 

@@ -2,21 +2,21 @@
     import { onMounted, reactive, ref, watch } from 'vue'
     import { useStorage, watchDebounced } from '@vueuse/core'
 
+    import JSONTree from '@/components/JSONTree.vue'
     import MonacoEditor from '@/components/MonacoEditor.vue'
     import OptionToggle from '@/components/OptionToggle.vue'
-    import JSONTree from '@/components/JSONTree.vue'
 
     import Split from 'split.js'
 
-    import source from '@/examples/source.json'
-    import target from '@/examples/target.json'
+    import sourceJSON from '@/examples/source.json'
+    import targetJSON from '@/examples/target.json'
 
     const content = reactive<{
         source: string
         target: string
     }>({
-        source: JSON.stringify(source, null, 4),
-        target: JSON.stringify(target, null, 4)
+        source: JSON.stringify(sourceJSON, null, 4),
+        target: JSON.stringify(targetJSON, null, 4)
     })
 
     const options = useStorage<{
@@ -34,7 +34,7 @@
         }
     )
 
-    const patchObject = ref<any>()
+    const patchObject = ref<any>(undefined)
     const patchErr = ref<string>('')
 
     function compare() {
@@ -65,22 +65,22 @@
             snapOffset: 0,
             minSize: 350,
         })
-    })
 
-    watch(options, () => {
-        compare()
-    }, {
-        immediate: true,
-        deep: true
-    })
+        watch(options, () => {
+            compare()
+        }, {
+            immediate: true,
+            deep: true
+        })
 
-    // Watch editors content with a debounce
-    // to avoid too frequent patch updates.
-    watchDebounced(content, () => {
-        compare()
-    }, {
-        debounce: 500,
-        immediate: true
+        // Watch editors content with a debounce
+        // to avoid too frequent patch updates.
+        watchDebounced(content, () => {
+            compare()
+        }, {
+            debounce: 500,
+            immediate: true
+        })
     })
 </script>
 
@@ -98,23 +98,23 @@
             <div id="output" class="flex flex-col font-sans">
                 <div class="flex overflow-auto justify-end py-4 px-6 space-x-4 w-full h-[62px] text-sm dark:text-white border-b-2 border-b-[#eeeeed] dark:border-b-[#1f2834]">
                     <div class="flex items-center">
-                        <label class="pr-2">Invertible
-                            <OptionToggle v-model="options.invertible" />
+                        <label class="text-xs">Invertible
+                            <OptionToggle v-model="options.invertible" class="ml-1" />
                         </label>
                     </div>
                     <div class="flex items-center">
-                        <label class="pr-2">Factorize
-                            <OptionToggle v-model="options.factorize" />
+                        <label class="text-xs">Factorize
+                            <OptionToggle v-model="options.factorize" class="ml-1" />
                         </label>
                     </div>
                     <div class="flex items-center">
-                        <label class="pr-2">Rationalize
-                            <OptionToggle v-model="options.rationalize" />
+                        <label class="text-xs">Rationalize
+                            <OptionToggle v-model="options.rationalize" class="ml-1" />
                         </label>
                     </div>
                     <div class="flex items-center">
-                        <label class="pr-2">Equivalent
-                            <OptionToggle v-model="options.equivalent" />
+                        <label class="text-xs">Equivalent
+                            <OptionToggle v-model="options.equivalent" class="ml-1" />
                         </label>
                     </div>
                 </div>
@@ -175,10 +175,9 @@
             }
 
             &::after {
-                background-color: #94A3B8;
-
                 @apply dark:bg-[#374151];
 
+                background-color: #94A3B8;
                 width: 4px;
                 height: 200px;
                 content: "";
@@ -191,14 +190,15 @@
 
             &:hover,
             &:active {
-                &::before {
-                    border-color: rgb(96 165 250);
-                    transition: border-color 0.3s ease-in-out 0s;
-                }
-
                 &::after {
                     background-color: rgb(96 165 250) !important;
-                    transition: background-color 0.3s ease-in-out 0s;
+                    transition: background-color 0.2s ease-in-out 0s;
+                }
+            }
+
+            &:active {
+                &::before {
+                    border-color: rgb(96 165 250);
                 }
             }
         }
@@ -222,10 +222,9 @@
             }
 
             &::after {
-                background-color: #94A3B8;
-
                 @apply dark:bg-[#374151];
 
+                background-color: #94A3B8;
                 height: 4px;
                 width: 200px;
                 content: "";
@@ -238,14 +237,15 @@
 
             &:hover,
             &:active {
-                &::before {
-                    border-color: rgb(96 165 250);
-                    transition: border-color 0.3s ease-in-out 0s;
-                }
-
                 &::after {
                     background-color: rgb(96 165 250) !important;
-                    transition: background-color 0.3s ease-in-out 0s;
+                    transition: background-color 0.2s ease-in-out 0s;
+                }
+            }
+
+            &:active {
+                &::before {
+                    border-color: rgb(96 165 250);
                 }
             }
         }
