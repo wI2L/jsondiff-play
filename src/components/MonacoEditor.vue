@@ -55,15 +55,13 @@
         // Initialize a debounced event handler that emit
         // the updated model value when the editor's
         // content is modified.
-        editor.onDidChangeModelContent(
-            useDebounceFn(() => {
-                const currentValue = editor.getValue()!
-                if (content.value !== currentValue) {
-                    content.value = currentValue
-                    emit('update:modelValue', content.value)
-                }
-            }, 1000, { maxWait: 5000 })
-        )
+        editor.onDidChangeModelContent(() => {
+            const currentValue = editor.getValue()!
+            if (content.value !== currentValue) {
+                content.value = currentValue
+                emit('update:modelValue', content.value)
+            }
+        })
 
         // Set editor value on load.
         // This will either the initial default value

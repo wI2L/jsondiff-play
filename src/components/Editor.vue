@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { onMounted, reactive, ref, watch } from 'vue'
-    import { useStorage } from '@vueuse/core'
+    import { useStorage, watchDebounced } from '@vueuse/core'
 
     import MonacoEditor from '@/components/MonacoEditor.vue'
     import OptionToggle from '@/components/OptionToggle.vue'
@@ -67,11 +67,20 @@
         })
     })
 
-    watch([content, options], () => {
+    watch(options, () => {
         compare()
     }, {
         immediate: true,
         deep: true
+    })
+
+    // Watch editors content with a debounce
+    // to avoid too frequent patch updates.
+    watchDebounced(content, () => {
+        compare()
+    }, {
+        debounce: 500,
+        immediate: true
     })
 </script>
 
