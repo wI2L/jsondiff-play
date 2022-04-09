@@ -47,7 +47,7 @@
         case 'undefined':
             return { color: 'var(--vjc-null-color)' }
         default:
-            return { color: 'var(--vjc-valueKey-color)' }
+            return { color: 'var(--vjc-value-key-color)' }
         }
     }
 </script>
@@ -142,20 +142,21 @@
 <style lang="scss" scoped>
     .item:not(.root) {
         margin-left: 35px;
+
         & > .expendable {
             margin-left: -16px;
         }
     }
 
     .value-key {
-        color: var(--vjc-valueKey-color);
+        color: var(--vjc-value-key-color);
         white-space: nowrap;
 
         &.can-select {
             cursor: pointer;
 
             &:hover {
-                background-color: rgba(0, 0, 0, 0.08);
+                background-color: rgb(0 0 0 / 8%);
             }
 
             &:focus {
@@ -186,14 +187,12 @@
             font-weight: 300;
             opacity: 0.9;
             margin-left: 4px;
-            -ms-user-select: none;
-            -moz-user-select: none;
-            -webkit-user-select: none;
             font-size: 0.92em;
         }
 
         .arrow {
             margin-left: -5px;
+
             svg {
                 display: inline-block;
             }

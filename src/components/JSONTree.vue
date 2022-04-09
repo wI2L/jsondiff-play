@@ -85,20 +85,20 @@
 
 <style lang="scss">
     :root {
-        --vjc-key-color: #000000;
-        --vjc-valueKey-color: #a31515;
-        --vjc-string-color: #0451a5;
+        --vjc-key-color: #000;
+        --vjc-value-key-color: #A31515;
+        --vjc-string-color: #0451A5;
         --vjc-number-color: #098658;
-        --vjc-boolean-color: #0451a5;
-        --vjc-null-color: #0451a5;
+        --vjc-boolean-color: #0451A5;
+        --vjc-null-color: #0451A5;
 
         &.dark {
-            --vjc-key-color: #dcdcdc;
-            --vjc-valueKey-color: #9cdcfe;
-            --vjc-string-color: #ce9178;
-            --vjc-number-color: #b5cea8;
-            --vjc-boolean-color: #ce9178;
-            --vjc-null-color: #ce9178;
+            --vjc-key-color: #DCDCDC;
+            --vjc-value-key-color: #9CDCFE;
+            --vjc-string-color: #CE9178;
+            --vjc-number-color: #B5CEA8;
+            --vjc-boolean-color: #CE9178;
+            --vjc-null-color: #CE9178;
         }
     }
 </style>

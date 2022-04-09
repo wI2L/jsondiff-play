@@ -147,23 +147,98 @@
 
 <style lang="scss">
     .gutter {
-        background-repeat: no-repeat;
-        background-position: 50%;
-
         &.gutter-horizontal {
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
             cursor: col-resize;
+            position: relative;
+            width: 16px;
+
             @apply border-x-2;
-            @apply dark:border-x-[#1f2834];
+            @apply dark:border-x-[#1F2834];
             @apply border-x-[#eeeeed];
+
+            &::before {
+                border-left: 1px solid transparent;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 100%;
+                content: "";
+                position: absolute;
+            }
+
+            &::after {
+                background-color: #94A3B8;
+
+                @apply dark:bg-[#374151];
+
+                width: 4px;
+                height: 200px;
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 4px;
+            }
+
+            &:hover,
+            &:active {
+                &::before {
+                    border-color: rgb(96 165 250);
+                    transition: border-color 0.3s ease-in-out 0s;
+                }
+
+                &::after {
+                    background-color: rgb(96 165 250) !important;
+                    transition: background-color 0.3s ease-in-out 0s;
+                }
+            }
         }
 
         &.gutter-vertical {
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
             cursor: row-resize;
+            position: relative;
+            height: 16px;
+
             @apply border-y-2;
             @apply dark:border-y-[#1f2834];
             @apply border-y-[#eeeeed];
+
+            &::before {
+                border-top: 1px solid transparent;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                content: "";
+                position: absolute;
+            }
+
+            &::after {
+                background-color: #94A3B8;
+
+                @apply dark:bg-[#374151];
+
+                height: 4px;
+                width: 200px;
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 4px;
+            }
+
+            &:hover,
+            &:active {
+                &::before {
+                    border-color: rgb(96 165 250);
+                    transition: border-color 0.3s ease-in-out 0s;
+                }
+
+                &::after {
+                    background-color: rgb(96 165 250) !important;
+                    transition: background-color 0.3s ease-in-out 0s;
+                }
+            }
         }
     }
 </style>
