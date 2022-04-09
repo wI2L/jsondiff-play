@@ -1,35 +1,40 @@
 <script setup lang="ts">
-    import { onBeforeMount, onMounted, onUnmounted, ref, toRefs, watch } from 'vue'
-    import { useStorage, useDebounceFn, useResizeObserver } from '@vueuse/core'
+    import { onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue'
+    import { useDebounceFn, useResizeObserver, useStorage } from '@vueuse/core'
     import useDarkGlobal from '@/utils/dark'
 
     import { editor as editorapi } from 'monaco-editor/esm/vs/editor/editor.api'
     import 'monaco-editor/esm/vs/language/json/monaco.contribution.js'
-    import nightOwl from '@/themes/night-owl.json'
+    import darkTheme from '@/themes/night-owl.json'
 
     const isDark = useDarkGlobal()
     const container = ref<HTMLDivElement | null>(null)
 
-    // Declare editor properties.
-    // The 'name' property allows differentiating between
-    // editors in the app, either "source" or "target".
-    const props = defineProps<{
-        name: string
-        defaultValue: object | []
-    }>()
-
-    const { name, defaultValue } = toRefs(props)
-
     let editor: editorapi.IStandaloneCodeEditor
 
-    const editorContent = useStorage<string>(name.value, JSON.stringify(defaultValue.value, null, 4))
-    const editorObserver = useResizeObserver(container, () => {
+    // The 'name' property allows differentiating between
+    // editors in the app, either "source" or "target".
+    // It is also used as the key of the local storage element
+    // that persist the current editor's value.
+    const props = defineProps<{
+        name: string
+        modelValue: string
+    }>()
+
+    const storagePrefix = 'jsondiff-editor-'
+
+    const content = useStorage<string>(storagePrefix+props.name, props.modelValue)
+
+    const observer = useResizeObserver(container, () => {
         editor.layout()
     })
-    const emit = defineEmits<(e: 'change', content: typeof editorContent.value) => void>()
+
+    const emit = defineEmits<{
+        (e: 'update:modelValue', value: typeof content.value): void
+    }>()
 
     onBeforeMount(() => {
-        editorapi.defineTheme('night-owl', nightOwl as editorapi.IStandaloneThemeData)
+        editorapi.defineTheme('night-owl', darkTheme as editorapi.IStandaloneThemeData)
     })
 
     onMounted(() => {
@@ -46,32 +51,39 @@
                 enabled: false,
             },
         })
-        emit('change', editorContent.value)
 
+        // Initialize a debounced event handler that emit
+        // the updated model value when the editor's
+        // content is modified.
         editor.onDidChangeModelContent(
             useDebounceFn(() => {
-                if (editorContent.value !== editor.getValue()!) {
-                    editorContent.value = editor.getValue()!
-                    emit('change', editorContent.value)
+                const currentValue = editor.getValue()!
+                if (content.value !== currentValue) {
+                    content.value = currentValue
+                    emit('update:modelValue', content.value)
                 }
-            }, 500)
+            }, 1000, { maxWait: 5000 })
         )
-        // Set values from storage on load.
-        if (editorContent.value) {
-            editor.setValue(editorContent.value)
+
+        // Set editor value on load.
+        // This will either the initial default value
+        // of the component or the value loaded from
+        // local storage.
+        if (content.value) {
+            editor.setValue(content.value)
         }
+    })
+
+    onUnmounted(() => {
+        editor?.dispose()
+        observer.stop()
     })
 
     watch(isDark, (value) => {
         editorapi.setTheme(value ? 'night-owl' : 'vs')
     })
-
-    onUnmounted(() => {
-        editor?.dispose()
-        editorObserver.stop()
-    })
 </script>
 
 <template>
-    <div ref="container" style="height: 100%" />
+    <div ref="container" class="h-full" />
 </template>

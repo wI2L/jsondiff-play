@@ -5,7 +5,7 @@ const useDarkGlobal = createGlobalState(() =>
         selector: 'html',
         attribute: 'class',
         valueDark: 'dark',
-        valueLight: '',
+        valueLight: 'light',
     })
 )
 
