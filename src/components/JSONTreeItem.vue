@@ -1,6 +1,5 @@
 <script setup lang="ts">
     import { computed, ref, toRefs } from 'vue'
-    import TreeNode from '@/@types/TreeNode'
 
     interface Props {
         data: TreeNode

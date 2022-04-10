@@ -34,8 +34,8 @@
         }
     )
 
-    const patchObject = ref<any>(undefined)
-    const patchErr = ref<string>('')
+    const patchValue = ref<any>()
+    const patchError = ref<string>('')
 
     function compare() {
         let result = jsondiffCompare(
@@ -47,11 +47,11 @@
             options.value.equivalent
         )
         if (result.error) {
-            patchErr.value = result.error
-            patchObject.value = undefined
+            patchError.value = result.error
+            patchValue.value = undefined
         } else {
-            patchErr.value = ''
-            patchObject.value = JSON.parse(result.patch)
+            patchError.value = ''
+            patchValue.value = JSON.parse(result.patch)
         }
     }
 
@@ -78,8 +78,7 @@
         watchDebounced(content, () => {
             compare()
         }, {
-            debounce: 500,
-            immediate: true
+            debounce: 500
         })
     })
 </script>
@@ -119,11 +118,11 @@
                     </div>
                 </div>
                 <div class="overflow-auto w-full h-full scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100">
-                    <div v-if="patchObject" class="py-8 px-12">
-                        <JSONTree :data="patchObject" :max-depth="2" root-key="patch" />
+                    <div v-if="patchValue" class="py-8 px-12">
+                        <JSONTree :data="patchValue" :max-depth="2" root-key="patch" />
                     </div>
                     <div
-                        v-else-if="patchErr"
+                        v-else-if="patchError"
                         class="py-3 px-4 h-auto text-red-900 dark:text-white bg-gradient-to-b from-red-100 dark:from-[#374151] border-t-2 border-red-500 opacity-[.9]"
                         role="alert">
                         <div class="flex">
@@ -137,7 +136,7 @@
                                     An error has occurred
                                 </p>
                                 <p class="pt-1 pb-6 font-mono text-xs">
-                                    <code>{{ patchErr }}</code>
+                                    <code>{{ patchError }}</code>
                                 </p>
                             </div>
                         </div>
