@@ -43,7 +43,8 @@ module.exports = {
                 '.scrollbar': {
                     '--scrollbar-thumb': '#cdcdcd',
                     '--scrollbar-track': '#f0f0f0',
-                    '--scrollbar-width': '17px',
+                    '--scrollbar-width': '16px',
+                    '--scrollbar-height': '16px',
                     'scrollbar-color': 'var(--scrollbar-thumb) var(--scrollbar-track)',
                     '&::-webkit-scrollbar': {
                         width: 'var(--scrollbar-width)',
@@ -51,6 +52,7 @@ module.exports = {
                 },
                 '.scrollbar-thin': {
                     '--scrollbar-width': '8px',
+                    '--scrollbar-height': '8px',
                     'scrollbar-width': 'thin',
                 },
             })

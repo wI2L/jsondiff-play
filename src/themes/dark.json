@@ -3,7 +3,7 @@
     "inherit": true,
     "colors": {
         "editor.foreground": "#d6deeb",
-        "editor.background": "#0e172a",
+        "editor.background": "#111A2D",
         "editor.selectionBackground": "#5f7e9779",
         "editor.lineHighlightBackground": "#010E17",
         "editorCursor.foreground": "#80a4c2",

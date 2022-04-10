@@ -17,7 +17,8 @@
         "allowSyntheticDefaultImports": true,
         "lib": [
             "esnext",
-            "dom"
+            "dom",
+            "dom.iterable"
         ],
         "paths": {
             "@/*": [

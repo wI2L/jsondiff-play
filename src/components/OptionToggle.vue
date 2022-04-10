@@ -21,7 +21,7 @@
 </script>
 
 <template>
-    <Switch v-model="value" :class="value ? 'bg-blue-400' : 'bg-[#515C6E]'" class="inline-flex items-center w-11 h-4 align-middle rounded-full">
+    <Switch v-model="value" :class="value ? 'bg-blue-400' : 'bg-[#5E697B]'" class="inline-flex items-center w-11 h-4 align-middle rounded-full">
         <span
             :class="value ? 'translate-x-6' : 'translate-x-1'"
             aria-hidden="true"
