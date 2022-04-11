@@ -27,6 +27,11 @@
                         <path d="M 9 3 h 6 v 16 h -6 M 3 17 V 5 a 2 2 0 0 1 2 -2 h 4 v 16 H 5 a 2 2 0 0 1 -2 -2 Z M 9 3" />
                         <path d="M 12 3 h 9 Z M 12 3 h 9 a 2 2 0 0 1 2 2 v 12 a 2 2 0 0 1 -2 2 h -9" fill="none" />
                     </svg>
+                    <svg :class="layout === EditorLayout.OneCol ? 'active' : 'inactive'" class="mx-1 w-6 h-5 cursor-pointer" stroke-width="1" @click.prevent="layout = EditorLayout.OneCol">
+                        <path d="M 3 5 a -2 -2 0 0 1 2 -2 H 21 a 2 2 0 0 1 2 2 v 3 h -20 V 5" />
+                        <path d="M 3 8 H 23 v 5 h -20 V 8" />
+                        <path d="M 3 13 H 23 V 17 A 2 2 0 0 1 21 19 h -16 A 2 2 0 0 1 3 17 V 13" fill="none" />
+                    </svg>
                 </div>
                 <div class="mx-4 w-px h-6 bg-gray-300 dark:bg-gray-700" />
                 <div class="flex items-center px-1 h-9 bg-gray-100 dark:bg-gray-800 rounded-md ring-1 ring-gray-300 dark:ring-gray-700">

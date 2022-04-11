@@ -83,13 +83,13 @@
             <span class="font-normal value-key">{{ data.key }}</span>
             <span class="dark:text-white">:</span>
             <span v-if="data.key === 'op'">
-                <span v-if="data.value === 'add'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-green-700 align-middle bg-green-200 rounded-md">
+                <span v-if="data.value === 'add'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-green-700 align-middle bg-green-200 rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                     <span class="pb-[1px]">{{ data.value }}</span>
                 </span>
-                <span v-if="data.value === 'remove'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-red-700 align-middle bg-red-200 rounded-md">
+                <span v-if="data.value === 'remove'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-red-700 align-middle bg-red-200 rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path
                             stroke-linecap="round"
@@ -100,7 +100,7 @@
                 </span>
                 <span
                     v-if="data.value === 'replace'"
-                    class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-orange-700 align-middle bg-orange-200 rounded-md">
+                    class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-orange-700 align-middle bg-orange-200 rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path
                             stroke-linecap="round"
@@ -111,19 +111,19 @@
                 </span>
                 <span
                     v-if="data.value === 'test'"
-                    class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-purple-700 align-middle bg-purple-200 rounded-md">
+                    class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-purple-700 align-middle bg-purple-200 rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span class="pb-[1px]">{{ data.value }}</span>
                 </span>
-                <span v-if="data.value === 'move'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-blue-700 align-middle bg-blue-200 rounded-md">
+                <span v-if="data.value === 'move'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-blue-700 align-middle bg-blue-200 rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                     </svg>
                     <span class="pb-[1px]">{{ data.value }}</span>
                 </span>
-                <span v-if="data.value === 'copy'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-blue-700 align-middle bg-blue-200 rounded-md">
+                <span v-if="data.value === 'copy'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-blue-700 align-middle bg-blue-200 rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path
                             stroke-linecap="round"
