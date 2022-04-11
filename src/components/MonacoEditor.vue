@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
     import { onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue'
     import { useResizeObserver, useStorage } from '@vueuse/core'
     import useDarkGlobal from '@/utils/dark'

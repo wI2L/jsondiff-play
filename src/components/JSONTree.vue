@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
     import { computed, toRefs } from 'vue'
     import JSONTreeItem from '@/components/JSONTreeItem.vue'
 

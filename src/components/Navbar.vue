@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
     import { useToggle } from '@vueuse/shared'
     import useDarkGlobal from '@/utils/dark'
     import { useLayoutGlobal, EditorLayout } from '@/utils/layout'
@@ -18,12 +18,12 @@
             </div>
             <div class="flex items-center mt-0">
                 <div class="flex items-center px-1 ml-6 h-9 bg-gray-100 dark:bg-gray-800 rounded-md ring-1 ring-gray-300 dark:ring-gray-700">
-                    <svg stroke-width="1" class="mx-1 w-6 h-5 cursor-pointer" :class="layout === EditorLayout.TwoCols ? 'active' : 'inactive'" @click.prevent="layout = EditorLayout.TwoCols">
+                    <svg :class="layout === EditorLayout.TwoCols ? 'active' : 'inactive'" class="mx-1 w-6 h-5 cursor-pointer" stroke-width="1" @click.prevent="layout = EditorLayout.TwoCols">
                         <path d="M 3 11 H 3 V 5 a 2 2 0 0 1 2 -2 h 8 v 8 H 3 Z" />
                         <path d="M 3 11 H 3 V 11 h 10 v 8 H 5 a 2 2 0 0 1 -2 -2 Z" />
                         <path d="M12 3h9a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-9" fill="none" />
                     </svg>
-                    <svg stroke-width="1" class="mx-1 w-6 h-5 cursor-pointer" :class="layout === EditorLayout.ThreeCols ? 'active' : 'inactive'" @click.prevent="layout = EditorLayout.ThreeCols">
+                    <svg :class="layout === EditorLayout.ThreeCols ? 'active' : 'inactive'" class="mx-1 w-6 h-5 cursor-pointer" stroke-width="1" @click.prevent="layout = EditorLayout.ThreeCols">
                         <path d="M 9 3 h 6 v 16 h -6 M 3 17 V 5 a 2 2 0 0 1 2 -2 h 4 v 16 H 5 a 2 2 0 0 1 -2 -2 Z M 9 3" />
                         <path d="M 12 3 h 9 Z M 12 3 h 9 a 2 2 0 0 1 2 2 v 12 a 2 2 0 0 1 -2 2 h -9" fill="none" />
                     </svg>
@@ -31,19 +31,12 @@
                 <div class="mx-4 w-px h-6 bg-gray-300 dark:bg-gray-700" />
                 <div class="flex items-center px-1 h-9 bg-gray-100 dark:bg-gray-800 rounded-md ring-1 ring-gray-300 dark:ring-gray-700">
                     <span class="mx-1 w-6 h-6 text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 cursor-pointer" @click.prevent="toggleDark()">
-                        <svg class="w-full h-full" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                v-if="isDark"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="1" />
-                            <path
-                                v-else
-                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="1" />
+                        <svg v-if="isDark" class="w-full h-full" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                        </svg>
+                        <svg v-else class="w-full h-full" fill="none" preserveAspectRatio="xMidYMid meet" stroke="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z" fill="currentColor" opacity=".2" />
+                            <path d="M248 88a8 8 0 0 1-8 8h-16v16a8 8 0 0 1-16 0V96h-16a8 8 0 0 1 0-16h16V64a8 8 0 0 1 16 0v16h16a8 8 0 0 1 8 8Zm-96-40h8v8a8 8 0 0 0 16 0v-8h8a8 8 0 0 0 0-16h-8v-8a8 8 0 0 0-16 0v8h-8a8 8 0 0 0 0 16Zm72.3 102.1a7.9 7.9 0 0 1 0 4.8A100 100 0 1 1 101.1 31.7a7.8 7.8 0 0 1 5.2.2a8 8 0 0 1 5 7.9a5.7 5.7 0 0 1-.3 1.8A84 84 0 0 0 214.3 145l2.2-.4a8.2 8.2 0 0 1 7.8 5.5Zm-20 13.1A99.9 99.9 0 0 1 92.8 51.7a84 84 0 1 0 111.5 111.5Z" fill="currentColor" />
                         </svg>
                     </span>
                     <a class="mx-1 w-6 h-6 text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100" href="https://github.com/wI2L/jsondiff-play" target="_blank">
