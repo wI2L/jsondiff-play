@@ -2,6 +2,7 @@
     import { onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue'
     import { useResizeObserver, useStorage } from '@vueuse/core'
     import useDarkGlobal from '@/utils/dark'
+    import { textSmall, textMedium, textLarge } from '@/utils/breakpoints'
 
     import { editor as editorapi } from 'monaco-editor/esm/vs/editor/editor.api'
     import 'monaco-editor/esm/vs/language/json/monaco.contribution.js'
@@ -45,7 +46,7 @@
             language: 'json',
             theme: isDark.value ? 'dark' : 'light',
             scrollBeyondLastLine: false,
-            fontSize: 14,
+            fontSize: 12,
             fontFamily: 'ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace',
             fontLigatures: false,
             renderLineHighlight: 'none',
@@ -58,6 +59,28 @@
                 horizontalScrollbarSize: 8
             }
         })
+        // Watch breakpoints to adjust the font size of the
+        // editor. 'immediate' is used to ensure that we use
+        // the right size on first render.
+        watch(textSmall, () => {
+            if (textSmall.value) {
+                editor.updateOptions({ fontSize: 12 })
+                editor.render(true)
+            }
+        },{ immediate: true })
+        watch(textMedium, () => {
+            if (textMedium.value) {
+                editor.updateOptions({ fontSize: 13 })
+                editor.render(true)
+            }
+        },{ immediate: true })
+        watch(textLarge, () => {
+            if (textLarge.value) {
+                editor.updateOptions({ fontSize: 14 })
+                editor.render(true)
+            }
+        },{ immediate: true })
+
         // Emit once the editor is created with the
         // current stored content, to allow the parent
         // to compute the patch once it has been mounted.

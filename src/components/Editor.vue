@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-    import { reactive } from 'vue'
+    import { reactive, watch } from 'vue'
 
     import Patch from '@/components/Patch.vue'
     import MonacoEditor from '@/components/MonacoEditor.vue'
     import { EditorLayout, useLayoutGlobal } from '@/utils/layout'
+    import { forceOneCloLayout } from "@/utils/breakpoints"
 
     import Split from 'split.js'
 
@@ -32,23 +33,34 @@
             Split(ids, binding.value)
         }
     }
+    let savedLayout: EditorLayout
+
+    watch(forceOneCloLayout, () => {
+        if (forceOneCloLayout.value) {
+            savedLayout = layout.value
+            layout.value = EditorLayout.OneCol
+        } else {
+            // Restore layout to what it was before it was replaced.
+            layout.value = savedLayout
+        }
+    }, { immediate: true })
 </script>
 
 <template>
     <main class="w-full h-full bg-[#fffffe] dark:bg-[#111A2D] border-t border-gray-200 dark:border-gray-700">
-        <div v-if="layout === EditorLayout.OneCol" v-split="{direction:'vertical',sizes:[20,20,60]}" class="flex flex-col w-full h-full">
+        <div v-if="layout === EditorLayout.OneCol" v-split="{direction:'vertical',sizes:[20,20,60],snapOffset:0}" class="flex flex-col w-full h-full">
             <MonacoEditor id="editor-source" v-model="content.source" name="source" class="w-full h-full border-0" />
             <MonacoEditor id="editor-target" v-model="content.target" name="target" class="w-full h-full border-0" />
             <Patch id="patch-1c" :source="content.source" :target="content.target" />
         </div>
-        <div v-if="layout === EditorLayout.TwoCols" v-split="{direction:'horizontal',sizes:[60,40]}" class="flex flex-row w-full h-full">
+        <div v-if="layout === EditorLayout.TwoCols" v-split="{direction:'horizontal',sizes:[50,50],minSize:325,snapOffset:0}" class="flex flex-row w-full h-full">
             <div id="split-editors-vertical" v-split="{direction:'vertical',sizes:[50,50]}" class="flex flex-col w-full h-full">
                 <MonacoEditor id="editor-source-h" v-model="content.source" name="source" class="w-full h-full border-0" />
                 <MonacoEditor id="editor-target-h" v-model="content.target" name="target" class="w-full h-full border-0" />
             </div>
             <Patch id="patch-2c" :source="content.source" :target="content.target" />
         </div>
-        <div v-if="layout === EditorLayout.ThreeCols" v-split="{direction:'horizontal',sizes:[35,35,30]}" class="flex flex-row w-full h-full">
+        <div v-if="layout === EditorLayout.ThreeCols" v-split="{direction:'horizontal',sizes:[35,35,30],minSize:400,snapOffset:0}" class="flex flex-row w-full h-full">
             <MonacoEditor id="editor-source-v" v-model="content.source" name="source" class="w-full h-full border-0" />
             <MonacoEditor id="editor-target-v" v-model="content.target" name="target" class="w-full h-full border-0" />
             <Patch id="patch-3c" :source="content.source" :target="content.target" />

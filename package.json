@@ -27,8 +27,8 @@
     },
     "devDependencies": {
         "@iconify/vue": "^3.2.1",
-        "@typescript-eslint/eslint-plugin": "^5.18.0",
-        "@typescript-eslint/parser": "^5.18.0",
+        "@typescript-eslint/eslint-plugin": "^5.19.0",
+        "@typescript-eslint/parser": "^5.19.0",
         "@vitejs/plugin-vue": "^2.3.1",
         "eslint": "^8.13.0",
         "eslint-plugin-import": "^2.26.0",
@@ -48,7 +48,7 @@
         "typescript": "^4.6.3",
         "vite": "^2.9.1",
         "vite-plugin-monaco-editor": "^1.0.10",
-        "vue-tsc": "^0.34.2"
+        "vue-tsc": "^0.34.5"
     },
     "overrides": {
         "monaco-editor": "^0.33.0"

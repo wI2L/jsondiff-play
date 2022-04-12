@@ -2,7 +2,7 @@ import { computed } from "vue"
 import { createGlobalState, useStorage } from '@vueuse/core'
 
 export const enum EditorLayout {
-    OneCol,
+    OneCol = 1,
     TwoCols,
     ThreeCols
 }

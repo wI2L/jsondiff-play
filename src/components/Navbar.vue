@@ -12,18 +12,19 @@
     <nav class="bg-slate-200 dark:bg-gray-900 border-b border-b-slate-400 dark:border-b-[#374151]">
         <div class="flex justify-between items-center py-3 px-6 mx-auto h-full">
             <div class="flex justify-between items-center">
-                <div>
-                    <a class="font-lato text-lg font-semibold text-gray-900 dark:text-white">JSONDiff Playground</a>
+                <!-- TODO: add logo from mobile breakpoint-->
+                <div class="hidden font-lato text-base font-semibold text-gray-900 dark:text-white sm:block lg:text-lg">
+                    JSONDiff Playground
                 </div>
             </div>
             <div class="flex items-center mt-0">
-                <div class="flex items-center px-1 ml-6 h-9 bg-gray-100 dark:bg-gray-800 rounded-md ring-1 ring-gray-300 dark:ring-gray-700">
+                <div class="hidden items-center px-1 ml-6 h-9 bg-gray-100 dark:bg-gray-800 rounded-md ring-1 ring-gray-300 dark:ring-gray-700 md:flex">
                     <svg :class="layout === EditorLayout.TwoCols ? 'active' : 'inactive'" class="mx-1 w-6 h-5 cursor-pointer" stroke-width="1" @click.prevent="layout = EditorLayout.TwoCols">
                         <path d="M 3 11 H 3 V 5 a 2 2 0 0 1 2 -2 h 8 v 8 H 3 Z" />
                         <path d="M 3 11 H 3 V 11 h 10 v 8 H 5 a 2 2 0 0 1 -2 -2 Z" />
                         <path d="M12 3h9a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-9" fill="none" />
                     </svg>
-                    <svg :class="layout === EditorLayout.ThreeCols ? 'active' : 'inactive'" class="mx-1 w-6 h-5 cursor-pointer" stroke-width="1" @click.prevent="layout = EditorLayout.ThreeCols">
+                    <svg :class="layout === EditorLayout.ThreeCols ? 'active' : 'inactive'" class="hidden mx-1 w-6 h-5 cursor-pointer xl:block" stroke-width="1" @click.prevent="layout = EditorLayout.ThreeCols">
                         <path d="M 9 3 h 6 v 16 h -6 M 3 17 V 5 a 2 2 0 0 1 2 -2 h 4 v 16 H 5 a 2 2 0 0 1 -2 -2 Z M 9 3" />
                         <path d="M 12 3 h 9 Z M 12 3 h 9 a 2 2 0 0 1 2 2 v 12 a 2 2 0 0 1 -2 2 h -9" fill="none" />
                     </svg>
@@ -33,7 +34,7 @@
                         <path d="M 3 13 H 23 V 17 A 2 2 0 0 1 21 19 h -16 A 2 2 0 0 1 3 17 V 13" fill="none" />
                     </svg>
                 </div>
-                <div class="mx-4 w-px h-6 bg-gray-300 dark:bg-gray-700" />
+                <div class="hidden mx-4 w-px h-6 bg-gray-300 dark:bg-gray-700 md:block" />
                 <div class="flex items-center px-1 h-9 bg-gray-100 dark:bg-gray-800 rounded-md ring-1 ring-gray-300 dark:ring-gray-700">
                     <span class="mx-1 w-6 h-6 text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 cursor-pointer" @click.prevent="toggleDark()">
                         <svg v-if="isDark" class="w-full h-full" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">

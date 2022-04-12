@@ -9,6 +9,10 @@ module.exports = {
             fontFamily: {
                 lato: ['Lato', 'sans-serif'],
             },
+            fontSize: {},
+            screens: {
+                'mobile': '320px',
+            },
         },
     },
     plugins: [

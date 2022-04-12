@@ -67,30 +67,22 @@
 
 <template>
     <div class="flex flex-col h-full">
-        <div class="flex overflow-auto justify-end py-4 px-6 space-x-4 w-full min-h-[62px] text-sm dark:text-white border-b-2 border-b-[#eeeeed] dark:border-b-[#1f2834]">
-            <div class="flex items-center">
-                <label class="text-xs">Invertible
-                    <OptionToggle v-model="options.invertible" class="ml-1" />
-                </label>
-            </div>
-            <div class="flex items-center">
-                <label class="text-xs">Factorize
-                    <OptionToggle v-model="options.factorize" class="ml-1" />
-                </label>
-            </div>
-            <div class="flex items-center">
-                <label class="text-xs">Rationalize
-                    <OptionToggle v-model="options.rationalize" class="ml-1" />
-                </label>
-            </div>
-            <div class="flex items-center">
-                <label class="text-xs">Equivalent
-                    <OptionToggle v-model="options.equivalent" class="ml-1" />
-                </label>
-            </div>
+        <div class="flex overflow-hidden flex-row shrink-0 items-center py-4 px-6 w-full min-h-fit text-xs dark:text-white border-b-2 border-b-[#eeeeed] dark:border-b-[#1f2834] mobile:justify-end mobile:space-y-0 mobile:space-x-4">
+            <label class="text-center">Invertible
+                <OptionToggle v-model="options.invertible" class="ml-1 align-middle" />
+            </label>
+            <label class="text-center">Factorize
+                <OptionToggle v-model="options.factorize" class="ml-1 align-middle" />
+            </label>
+            <label class="text-center">Rationalize
+                <OptionToggle v-model="options.rationalize" class="ml-1 align-middle" />
+            </label>
+            <label class="text-center">Equivalent
+                <OptionToggle v-model="options.equivalent" class="ml-1 align-middle" />
+            </label>
         </div>
-        <div class="overflow-auto w-full h-full scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100">
-            <div v-if="patchValue" class="py-8 px-12 h-auto">
+        <div class="overflow-auto w-full h-full text-xs sm:text-sm lg:text-base scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100">
+            <div v-if="patchValue" class="p-6 w-full h-auto sm:py-8 sm:px-12">
                 <JSONTree :data="patchValue" :max-depth="2" root-key="patch" />
             </div>
             <div
