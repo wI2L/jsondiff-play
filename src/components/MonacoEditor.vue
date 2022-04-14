@@ -119,9 +119,3 @@
 <template>
     <div ref="container" class="h-full" />
 </template>
-
-<style>
-    .monaco-editor * {
-        border-style: none;
-    }
-</style>

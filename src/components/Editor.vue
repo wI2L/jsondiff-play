@@ -4,7 +4,7 @@
     import Patch from '@/components/Patch.vue'
     import MonacoEditor from '@/components/MonacoEditor.vue'
     import { EditorLayout, useLayoutGlobal } from '@/utils/layout'
-    import { forceOneCloLayout } from "@/utils/breakpoints"
+    import { forceOneColLayout } from "@/utils/breakpoints"
 
     import Split from 'split.js'
 
@@ -33,10 +33,10 @@
             Split(ids, binding.value)
         }
     }
-    let savedLayout: EditorLayout
+    let savedLayout = layout.value // initialize with default
 
-    watch(forceOneCloLayout, () => {
-        if (forceOneCloLayout.value) {
+    watch(forceOneColLayout, () => {
+        if (forceOneColLayout.value) {
             savedLayout = layout.value
             layout.value = EditorLayout.OneCol
         } else {

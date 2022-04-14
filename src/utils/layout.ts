@@ -1,24 +1,34 @@
 import { computed } from "vue"
 import { createGlobalState, useStorage } from '@vueuse/core'
+import { forceOneColLayout, wideScreen } from '@/utils/breakpoints'
 
-export const enum EditorLayout {
-    OneCol = 1,
+export enum EditorLayout {
+    OneCol,
     TwoCols,
     ThreeCols
 }
 
-const source = useStorage<EditorLayout>('jsondiff-layout', EditorLayout.TwoCols)
+function initialLayout(): EditorLayout {
+    if (wideScreen.value) {
+        return EditorLayout.ThreeCols
+    } else if (forceOneColLayout.value) {
+        return EditorLayout.OneCol
+    }
+    return EditorLayout.TwoCols
+}
+
+const source = useStorage<EditorLayout>('jsondiff-layout', initialLayout())
 
 const value = computed({
-    get() {
-        if (!source.value || source.value < EditorLayout.OneCol || source.value > EditorLayout.ThreeCols) {
+    get: (): EditorLayout => {
+        if (!(source.value in EditorLayout)) {
             return EditorLayout.TwoCols
         }
         return source.value
     },
-    set(value: EditorLayout) {
+    set: (value: EditorLayout) => {
         source.value = value
-    },
+    }
 })
 
 export const useLayoutGlobal = createGlobalState(() => value)
