@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import { onMounted, ref, toRefs, watch } from "vue"
+    import { computed, onMounted, ref, toRefs, watch } from "vue"
     import { useStorage, watchDebounced } from "@vueuse/core"
 
     import OptionToggle from '@/components/OptionToggle.vue'
@@ -26,8 +26,15 @@
         }
     )
 
-    const patchValue = ref<any>()
-    const patchError = ref<string>('')
+    const patchValue = ref<string>('')
+    const patchError = ref<string | undefined>(undefined)
+
+    const patchObject = computed<any>(() => {
+        if (patchValue.value === '') {
+            return undefined
+        }
+        return JSON.parse(patchValue.value)
+    })
 
     function compare() {
         let result = jsondiffCompare(
@@ -40,10 +47,10 @@
         )
         if (result.error) {
             patchError.value = result.error
-            patchValue.value = undefined
+            patchValue.value = ''
         } else {
-            patchError.value = ''
-            patchValue.value = JSON.parse(result.patch)
+            patchError.value = undefined
+            patchValue.value = result.patch
         }
     }
 
@@ -82,8 +89,8 @@
             </label>
         </div>
         <div class="overflow-auto w-full h-full text-xs sm:text-sm lg:text-base scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100">
-            <div v-if="patchValue" class="p-6 w-full h-auto sm:py-8 sm:px-12">
-                <JSONTree :data="patchValue" :max-depth="2" root-key="patch" />
+            <div v-if="patchObject" class="p-6 w-full h-auto sm:py-8 sm:px-12">
+                <JSONTree :data="patchObject" :max-depth="2" root-key="patch" />
             </div>
             <div
                 v-else-if="patchError"

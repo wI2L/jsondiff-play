@@ -6,6 +6,7 @@ const textSmall = breakpoints.smaller('sm')
 const textMedium = breakpoints.between('sm', 'lg')
 const textLarge = breakpoints['lg']
 const forceOneColLayout = breakpoints.smaller('md')
+const forceTwoColLayout = breakpoints.smaller('xl')
 const wideScreen = breakpoints.greater('xl')
 
 export {
@@ -13,5 +14,6 @@ export {
     textMedium,
     textLarge,
     forceOneColLayout,
+    forceTwoColLayout,
     wideScreen
 }

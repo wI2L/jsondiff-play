@@ -4,7 +4,7 @@
     import Patch from '@/components/Patch.vue'
     import MonacoEditor from '@/components/MonacoEditor.vue'
     import { EditorLayout, useLayoutGlobal } from '@/utils/layout'
-    import { forceOneColLayout } from "@/utils/breakpoints"
+    import { forceOneColLayout, forceTwoColLayout } from "@/utils/breakpoints"
 
     import Split from 'split.js'
 
@@ -35,11 +35,29 @@
     }
     let savedLayout = layout.value // initialize with default
 
-    watch(forceOneColLayout, () => {
-        if (forceOneColLayout.value) {
-            savedLayout = layout.value
+    watch([forceOneColLayout, forceTwoColLayout], ([n1, n2], [o1, o2]) => {
+        if (n1) {
+            // Override saved layout only if it wasn't
+            // already saved by the previous layout override.
+            if (savedLayout !== EditorLayout.ThreeCols) {
+                savedLayout = layout.value
+            }
             layout.value = EditorLayout.OneCol
-        } else {
+        } else if (n2) {
+            if (!o1) {
+                // If the previous layout was not forced to
+                // one column, then we're shrinking, and we
+                // save the current layout to restore it later.
+                savedLayout = layout.value
+            }
+            // Do not force layout to two columns if the
+            // current layout already fit while shrinking,
+            // or if the saved layout is one column while
+            // expanding.
+            if ((!o1 && layout.value !== EditorLayout.OneCol) || (o1 && savedLayout != EditorLayout.OneCol)) {
+                layout.value = EditorLayout.TwoCols
+            }
+        } else if (!n1 && !n2) {
             // Restore layout to what it was before it was replaced.
             layout.value = savedLayout
         }

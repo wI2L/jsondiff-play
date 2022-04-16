@@ -52,6 +52,7 @@ module.exports = {
                     'scrollbar-color': 'var(--scrollbar-thumb) var(--scrollbar-track)',
                     '&::-webkit-scrollbar': {
                         width: 'var(--scrollbar-width)',
+                        height: 'var(--scrollbar-height)',
                     },
                 },
                 '.scrollbar-thin': {
