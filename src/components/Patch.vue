@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-    import { computed, onMounted, ref, toRefs, watch } from "vue"
-    import { useStorage, watchDebounced } from "@vueuse/core"
+    import { onMounted, ref, toRefs, watch } from "vue"
+    import { useMagicKeys, useStorage, useToggle, watchDebounced, whenever } from "@vueuse/core"
 
+    import MonacoEditor from '@/components/MonacoEditor.vue'
     import OptionToggle from '@/components/OptionToggle.vue'
     import JSONTree from '@/components/JSONTree.vue'
 
@@ -27,14 +28,8 @@
     )
 
     const patchValue = ref<string>('')
+    const patchObject = ref<any | undefined>(undefined)
     const patchError = ref<string | undefined>(undefined)
-
-    const patchObject = computed<any>(() => {
-        if (patchValue.value === '') {
-            return undefined
-        }
-        return JSON.parse(patchValue.value)
-    })
 
     function compare() {
         let result = jsondiffCompare(
@@ -47,12 +42,24 @@
         )
         if (result.error) {
             patchError.value = result.error
+            patchObject.value = undefined
             patchValue.value = ''
         } else {
             patchError.value = undefined
-            patchValue.value = result.patch
+            const obj = JSON.parse(result.patch)
+            patchObject.value = obj
+            patchValue.value = JSON.stringify(obj, null, 4)
         }
     }
+
+    const treeView = ref<boolean>(false)
+    const toggleTreeView = useToggle(treeView)
+
+    const keys = useMagicKeys()
+
+    whenever(keys.ctrl_v, () => {
+        toggleTreeView()
+    })
 
     onMounted(() => {
         watch(options, () => {
@@ -73,7 +80,7 @@
 </script>
 
 <template>
-    <div class="flex flex-col h-full">
+    <div class="flex flex-col w-full h-full">
         <div class="flex overflow-hidden flex-row shrink-0 items-center py-4 px-6 w-full min-h-fit text-xs dark:text-white border-b-2 border-b-[#eeeeed] dark:border-b-[#1f2834] mobile:justify-end mobile:space-y-0 mobile:space-x-4">
             <label class="text-center">Invertible
                 <OptionToggle v-model="options.invertible" class="ml-1 align-middle" />
@@ -89,11 +96,8 @@
             </label>
         </div>
         <div class="overflow-auto w-full h-full text-xs sm:text-sm lg:text-base scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100">
-            <div v-if="patchObject" class="p-6 w-full h-auto sm:py-8 sm:px-12">
-                <JSONTree :data="patchObject" :max-depth="2" root-key="patch" />
-            </div>
             <div
-                v-else-if="patchError"
+                v-if="patchError"
                 class="py-3 px-4 h-auto text-red-900 dark:text-white bg-gradient-to-b from-red-100 dark:from-[#374151] border-t-2 border-red-500 opacity-[.9]"
                 role="alert">
                 <div class="flex">
@@ -111,6 +115,10 @@
                         </p>
                     </div>
                 </div>
+            </div>
+            <div v-else class="w-full h-full">
+                <JSONTree v-if="treeView" :data="patchObject" :max-depth="2" root-key="patch" class="p-6 w-full h-auto sm:py-8 sm:px-12" />
+                <MonacoEditor v-else v-model="patchValue" :read-only="true" class="overflow-hidden border-0" />
             </div>
         </div>
     </div>

@@ -11,8 +11,6 @@
     import sourceJSON from '@/examples/source.json'
     import targetJSON from '@/examples/target.json'
 
-    const layout = useLayoutGlobal()
-
     const content = reactive<{
         source: string
         target: string
@@ -33,6 +31,8 @@
             Split(ids, binding.value)
         }
     }
+    const layout = useLayoutGlobal()
+
     let savedLayout = layout.value // initialize with default
 
     // Create an event handler to refresh the saved

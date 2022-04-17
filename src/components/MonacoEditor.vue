@@ -1,14 +1,11 @@
 <script lang="ts" setup>
-    import { onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue'
+    import { onMounted, onUnmounted, ref, toRef, watch } from 'vue'
     import { useResizeObserver, useStorage } from '@vueuse/core'
     import useDarkGlobal from '@/utils/dark'
     import { textSmall, textMedium, textLarge } from '@/utils/breakpoints'
 
     import { editor as editorapi } from 'monaco-editor/esm/vs/editor/editor.api'
     import 'monaco-editor/esm/vs/language/json/monaco.contribution.js'
-
-    import darkTheme from '@/themes/dark.json'
-    import lightTheme from '@/themes/light.json'
 
     const isDark = useDarkGlobal()
     const container = ref<HTMLDivElement | null>(null)
@@ -20,37 +17,35 @@
     // as the key of the local storage element
     // that persist the current editor's value.
     const props = defineProps<{
-        name: string
         modelValue: string
+        name?: string
+        readOnly?: boolean
+    }>()
+
+    const emit = defineEmits<{
+        (e: 'update:modelValue', value: string): void
     }>()
 
     const storagePrefix = 'jsondiff-editor-'
-
-    const content = useStorage<string>(storagePrefix+props.name, props.modelValue)
+    const content = !props.readOnly ? useStorage<string>(storagePrefix+props.name, props.modelValue) : toRef(props, 'modelValue')
 
     const observer = useResizeObserver(container, () => {
         editor.layout()
-    })
-
-    const emit = defineEmits<{
-        (e: 'update:modelValue', value: typeof content.value): void
-    }>()
-
-    onBeforeMount(() => {
-        editorapi.defineTheme('dark', darkTheme as editorapi.IStandaloneThemeData)
-        editorapi.defineTheme('light', lightTheme as editorapi.IStandaloneThemeData)
     })
 
     onMounted(() => {
         editor = editorapi.create(container.value!, {
             language: 'json',
             theme: isDark.value ? 'dark' : 'light',
+            value: content.value,
             scrollBeyondLastLine: false,
             fontSize: 12,
             fontFamily: 'ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace',
             fontLigatures: false,
             renderLineHighlight: 'none',
             overviewRulerLanes: 0,
+            readOnly: props.readOnly,
+            domReadOnly: props.readOnly,
             minimap: {
                 enabled: false,
             },
@@ -68,12 +63,14 @@
                 editor.render(true)
             }
         },{ immediate: true })
+
         watch(textMedium, () => {
             if (textMedium.value) {
                 editor.updateOptions({ fontSize: 13 })
                 editor.render(true)
             }
         },{ immediate: true })
+
         watch(textLarge, () => {
             if (textLarge.value) {
                 editor.updateOptions({ fontSize: 14 })
@@ -81,28 +78,26 @@
             }
         },{ immediate: true })
 
-        // Emit once the editor is created with the
-        // current stored content, to allow the parent
-        // to compute the patch once it has been mounted.
-        emit('update:modelValue', content.value)
+        if (!props.readOnly) {
+            // Emit once the editor is created with the
+            // current stored content, to allow the parent
+            // to compute the patch once it has been mounted.
+            emit('update:modelValue', content.value)
 
-        // Initialize a debounced event handler that emit
-        // the updated model value when the editor's
-        // content is modified.
-        editor.onDidChangeModelContent(() => {
-            const currentValue = editor.getValue()!
-            if (content.value !== currentValue) {
-                content.value = currentValue
-                emit('update:modelValue', content.value)
-            }
-        })
-
-        // Set editor value on load.
-        // This will either the initial default value
-        // of the component or the value loaded from
-        // local storage.
-        if (content.value) {
-            editor.setValue(content.value)
+            // Initialize a debounced event handler that emit
+            // the updated model value when the editor's
+            // content is modified.
+            editor.onDidChangeModelContent(() => {
+                const currentValue = editor.getValue()!
+                if (content.value !== currentValue) {
+                    content.value = currentValue
+                    emit('update:modelValue', content.value)
+                }
+            })
+        } else {
+            watch(content, () => {
+                editor.setValue(content.value)
+            })
         }
     })
 
@@ -117,5 +112,5 @@
 </script>
 
 <template>
-    <div ref="container" class="h-full" />
+    <div ref="container" class="w-full h-full" />
 </template>
