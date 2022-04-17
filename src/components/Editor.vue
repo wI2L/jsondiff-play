@@ -3,7 +3,7 @@
 
     import Patch from '@/components/Patch.vue'
     import MonacoEditor from '@/components/MonacoEditor.vue'
-    import { EditorLayout, useLayoutGlobal } from '@/utils/layout'
+    import { EditorLayout, useLayoutGlobal, layoutBus } from '@/utils/layout'
     import { forceOneColLayout, forceTwoColLayout } from "@/utils/breakpoints"
 
     import Split from 'split.js'
@@ -35,7 +35,13 @@
     }
     let savedLayout = layout.value // initialize with default
 
-    watch([forceOneColLayout, forceTwoColLayout], ([n1, n2], [o1, o2]) => {
+    // Create an event handler to refresh the saved
+    // layout every time the user manually changes it.
+    layoutBus.on(() => {
+        savedLayout = layout.value
+    })
+
+    watch([forceOneColLayout, forceTwoColLayout], ([n1, n2], [o1]) => {
         if (n1) {
             // Override saved layout only if it wasn't
             // already saved by the previous layout override.
@@ -58,7 +64,8 @@
                 layout.value = EditorLayout.TwoCols
             }
         } else if (!n1 && !n2) {
-            // Restore layout to what it was before it was replaced.
+            // Restore layout to what it was before override,
+            // or to the latest user's selection.
             layout.value = savedLayout
         }
     }, { immediate: true })
@@ -78,7 +85,7 @@
             </div>
             <Patch id="patch-2c" :source="content.source" :target="content.target" />
         </div>
-        <div v-if="layout === EditorLayout.ThreeCols" v-split="{direction:'horizontal',sizes:[35,35,30],minSize:400,snapOffset:0}" class="flex flex-row w-full h-full">
+        <div v-if="layout === EditorLayout.ThreeCols" v-split="{direction:'horizontal',sizes:[33,33,33],minSize:400,snapOffset:0}" class="flex flex-row w-full h-full">
             <MonacoEditor id="editor-source-v" v-model="content.source" name="source" class="w-full h-full border-0" />
             <MonacoEditor id="editor-target-v" v-model="content.target" name="target" class="w-full h-full border-0" />
             <Patch id="patch-3c" :source="content.source" :target="content.target" />

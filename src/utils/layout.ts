@@ -1,5 +1,5 @@
 import { computed } from "vue"
-import { createGlobalState, useStorage } from '@vueuse/core'
+import { createGlobalState, useEventBus, useStorage } from '@vueuse/core'
 import { forceOneColLayout, wideScreen } from '@/utils/breakpoints'
 
 export enum EditorLayout {
@@ -32,3 +32,5 @@ const value = computed({
 })
 
 export const useLayoutGlobal = createGlobalState(() => value)
+
+export const layoutBus = useEventBus<boolean>("layout-bus")
