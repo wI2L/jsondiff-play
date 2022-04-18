@@ -85,7 +85,7 @@
             </div>
             <Patch id="patch-2c" :source="content.source" :target="content.target" />
         </div>
-        <div v-if="layout === EditorLayout.ThreeCols" v-split="{direction:'horizontal',sizes:[33,33,33],minSize:400,snapOffset:0}" class="flex flex-row w-full h-full">
+        <div v-if="layout === EditorLayout.ThreeCols" v-split="{direction:'horizontal',sizes:[32,32,36],minSize:400,snapOffset:0}" class="flex flex-row w-full h-full">
             <MonacoEditor id="editor-source-v" v-model="content.source" name="source" class="w-full h-full border-0" />
             <MonacoEditor id="editor-target-v" v-model="content.target" name="target" class="w-full h-full border-0" />
             <Patch id="patch-3c" :source="content.source" :target="content.target" />

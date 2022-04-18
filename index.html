@@ -15,19 +15,11 @@
                     return await WebAssembly.instantiate(source, importObject)
                 }
             }
-            const go = new Go()
-            WebAssembly.instantiateStreaming(fetch('/jsondiff.wasm'), go.importObject)
-                .then((result) => {
-                    go.run(result.instance)
-                })
-                .catch((err) => {
-                    console.error(err)
-                })
         </script>
-        <script src="/src/main.ts" type="module"></script>
         <noscript>
             <strong>Sorry but the playground doesn't work without JavaScript enabled. Please enable it to continue.</strong>
         </noscript>
         <div id="app"></div>
+        <script src="/src/main.ts" type="module"></script>
     </body>
 </html>
