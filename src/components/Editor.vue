@@ -95,7 +95,7 @@
 
 <style lang="scss" scoped>
     main {
-        height: calc(100vh - var(--nav-height));
+        height: calc(100% - var(--nav-height));
     }
 </style>
 
