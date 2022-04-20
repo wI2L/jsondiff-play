@@ -14,3 +14,11 @@ $ npm run dev
 ```
 
 Open http://localhost:3000 in your browser to access the application.
+
+## Tech stack
+
+- [Vue.js](https://vuejs.org/)
+- [Vite.js](https://vitejs.dev/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [VueUse](https://vueuse.org/)
+- [WebAssembly (WASM)](https://webassembly.org/)
