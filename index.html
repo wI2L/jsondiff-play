@@ -7,15 +7,6 @@
         <title>JSONDiff Playground</title>
     </head>
     <body class="overflow-hidden subpixel-antialiased w-full">
-        <script src="/wasm_exec.js"></script>
-        <script>
-            if (!WebAssembly.instantiateStreaming) {
-                WebAssembly.instantiateStreaming = async (resp, importObject) => {
-                    const source = await (await resp).arrayBuffer()
-                    return await WebAssembly.instantiate(source, importObject)
-                }
-            }
-        </script>
         <noscript>
             <strong>Sorry but the playground doesn't work without JavaScript enabled. Please enable it to continue.</strong>
         </noscript>

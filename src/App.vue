@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
     import { editor as editorapi } from 'monaco-editor/esm/vs/editor/editor.api'
 
     import Navbar from '@/components/Navbar.vue'
