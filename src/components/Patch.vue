@@ -1,6 +1,6 @@
 <script lang="ts" setup>
     import { onMounted, ref, toRefs, watch } from "vue"
-    import { useMagicKeys, useStorage, useToggle, watchDebounced, whenever } from "@vueuse/core"
+    import { useMagicKeys, useScroll, useStorage, useToggle, watchDebounced, whenever } from "@vueuse/core"
 
     import MonacoEditor from '@/components/MonacoEditor.vue'
     import OptionToggle from '@/components/OptionToggle.vue'
@@ -61,6 +61,10 @@
         toggleTreeView()
     })
 
+    const container = ref<HTMLElement | null>(null)
+    const { arrivedState } = useScroll(container)
+    const { top } = toRefs(arrivedState)
+
     onMounted(() => {
         watch(options, () => {
             compare()
@@ -95,7 +99,10 @@
                 <OptionToggle v-model="options.equivalent" class="ml-1 align-middle" />
             </label>
         </div>
-        <div class="overflow-auto w-full h-full text-xs sm:text-sm lg:text-base scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100">
+        <div
+            ref="container"
+            class="overflow-auto w-full h-full text-xs sm:text-sm lg:text-base scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100"
+            :class="!top ? 'dark:[box-shadow:inset_#000000_0_6px_6px_-6px] [box-shadow:inset_#dddddd_0_6px_6px_-6px]' : ''">
             <div
                 v-if="patchError"
                 class="py-3 px-4 h-auto text-red-900 dark:text-white bg-gradient-to-b from-red-100 dark:from-[#374151] border-t-2 border-red-500 opacity-[.9]"
