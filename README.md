@@ -15,6 +15,11 @@ $ npm run dev
 
 Open http://localhost:3000 in your browser to access the application.
 
+### Tree view
+
+You can switch between a raw JSON output view to a Tree view to visualize the resulting patch. Use the <kbd>⌃ Control</kbd> + <kbd>V</kbd> keyboard shortcut to switch between the two.
+
+
 ## Tech stack
 
 - [Vue.js](https://vuejs.org/)

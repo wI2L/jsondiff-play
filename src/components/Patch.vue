@@ -52,7 +52,7 @@
         }
     }
 
-    const treeView = ref<boolean>(true)
+    const treeView = ref<boolean>(false)
     const toggleTreeView = useToggle(treeView)
 
     const keys = useMagicKeys()
