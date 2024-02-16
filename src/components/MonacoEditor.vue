@@ -39,7 +39,7 @@
             theme: isDark.value ? 'dark' : 'light',
             value: content.value,
             scrollBeyondLastLine: false,
-            fontSize: 12,
+            fontSize: 11,
             fontFamily: 'ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace',
             fontLigatures: false,
             renderLineHighlight: 'none',
@@ -59,21 +59,21 @@
         // the right size on first render.
         watch(textSmall, () => {
             if (textSmall.value) {
-                editor.updateOptions({ fontSize: 12 })
+                editor.updateOptions({ fontSize: 11 })
                 editor.render(true)
             }
         },{ immediate: true })
 
         watch(textMedium, () => {
             if (textMedium.value) {
-                editor.updateOptions({ fontSize: 13 })
+                editor.updateOptions({ fontSize: 12 })
                 editor.render(true)
             }
         },{ immediate: true })
 
         watch(textLarge, () => {
             if (textLarge.value) {
-                editor.updateOptions({ fontSize: 14 })
+                editor.updateOptions({ fontSize: 13 })
                 editor.render(true)
             }
         },{ immediate: true })
@@ -112,5 +112,5 @@
 </script>
 
 <template>
-    <div ref="container" class="w-full h-full" />
+    <div ref="container" class="size-full" />
 </template>

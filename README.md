@@ -1,6 +1,6 @@
 # `jsondiff` Playground
 
-A playground for [**wI2L/jsondiff**](https://github.com/wI2L/jsondiff). Supports all the [options](https://github.com/wI2L/jsondiff#diff-options) of the package.
+A playground for [**wI2L/jsondiff**](https://github.com/wI2L/jsondiff). Supports *most of* the [options](https://github.com/wI2L/jsondiff#diff-options).
 
 ![Preview](./images/split.png)
 
@@ -18,7 +18,6 @@ Open http://localhost:3000 in your browser to access the application.
 ### Tree view
 
 You can switch between a raw JSON output view to a Tree view to visualize the resulting patch. Use the <kbd>⌃ Control</kbd> + <kbd>V</kbd> keyboard shortcut to switch between the two.
-
 
 ## Tech stack
 

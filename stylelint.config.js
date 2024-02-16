@@ -6,6 +6,12 @@ module.exports = {
                 'baseIndentLevel': 1
             }
         ],
+        'scss/at-rule-no-unknown': [
+            true,
+            {
+                'ignoreAtRules': ['tailwind']
+            }
+        ],
         'color-hex-case': 'upper'
     },
     plugins: [

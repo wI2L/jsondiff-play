@@ -17,13 +17,15 @@
         rationalize: boolean
         invertible: boolean
         equivalent: boolean
+        lcs: boolean
     }>(
         'jsondiff-options',
         {
             factorize: false,
             rationalize: false,
             invertible: false,
-            equivalent: false
+            equivalent: false,
+            lcs: false,
         }
     )
 
@@ -38,7 +40,8 @@
             options.value.invertible,
             options.value.factorize,
             options.value.rationalize,
-            options.value.equivalent
+            options.value.equivalent,
+            options.value.lcs,
         )
         if (result.error) {
             patchError.value = result.error
@@ -84,8 +87,11 @@
 </script>
 
 <template>
-    <div class="flex flex-col w-full h-full">
-        <div class="flex overflow-hidden flex-row shrink-0 items-center py-4 px-6 w-full min-h-fit text-xs dark:text-white border-b-2 border-b-[#eeeeed] dark:border-b-[#1f2834] mobile:justify-end mobile:space-y-0 mobile:space-x-4">
+    <div class="flex size-full flex-col">
+        <div class="flex min-h-fit w-full shrink-0 flex-row items-center overflow-hidden border-b-2 border-b-[#eeeeed] px-6 py-4 text-xs dark:border-b-[#1f2834] dark:text-white mobile:justify-end mobile:space-x-4 mobile:space-y-0">
+            <label class="text-center" title="Longest Common Subsequences">LCS
+                <OptionToggle v-model="options.lcs" class="ml-1 align-middle" :disabled="options.rationalize" :class="{'opacity-50 hover:cursor-not-allowed': options.rationalize}" />
+            </label>
             <label class="text-center">Invertible
                 <OptionToggle v-model="options.invertible" class="ml-1 align-middle" />
             </label>
@@ -93,7 +99,7 @@
                 <OptionToggle v-model="options.factorize" class="ml-1 align-middle" />
             </label>
             <label class="text-center">Rationalize
-                <OptionToggle v-model="options.rationalize" class="ml-1 align-middle" />
+                <OptionToggle v-model="options.rationalize" class="ml-1 align-middle" :disabled="options.lcs" :class="{'opacity-50 hover:cursor-not-allowed': options.lcs}" />
             </label>
             <label class="text-center">Equivalent
                 <OptionToggle v-model="options.equivalent" class="ml-1 align-middle" />
@@ -101,15 +107,15 @@
         </div>
         <div
             ref="container"
-            class="overflow-auto w-full h-full text-xs sm:text-sm lg:text-base scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100"
+            class="size-full overflow-auto text-xs scrollbar scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-200 dark:scrollbar-track-gray-700 dark:scrollbar-thumb-blue-100 sm:text-sm lg:text-base"
             :class="!top ? 'dark:[box-shadow:inset_#000000_0_6px_6px_-6px] [box-shadow:inset_#dddddd_0_6px_6px_-6px]' : ''">
             <div
                 v-if="patchError"
-                class="py-3 px-4 h-auto text-red-900 dark:text-white bg-gradient-to-b from-red-100 dark:from-[#374151] border-t-2 border-red-500 opacity-[.9]"
+                class="h-auto border-t-2 border-red-500 bg-gradient-to-b from-red-100 px-4 py-3 text-red-900 opacity-[.9] dark:from-[#374151] dark:text-white"
                 role="alert">
                 <div class="flex">
                     <div class="py-1">
-                        <svg class="mr-5 w-6 h-6 text-red-500 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="mr-5 size-6 fill-current text-red-500" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
                         </svg>
                     </div>
@@ -117,14 +123,14 @@
                         <p class="font-bold">
                             An error has occurred
                         </p>
-                        <p class="pt-1 pb-6 font-mono text-xs">
+                        <p class="pb-6 pt-1 font-mono text-xs">
                             <code>{{ patchError }}</code>
                         </p>
                     </div>
                 </div>
             </div>
-            <div v-else class="w-full h-full">
-                <JSONTree v-if="treeView" :data="patchObject" :max-depth="2" root-key="patch" class="p-6 w-full h-auto sm:py-8 sm:px-12" />
+            <div v-else class="size-full">
+                <JSONTree v-if="treeView" :data="patchObject" :max-depth="2" root-key="patch" class="h-auto w-full p-6 sm:px-12 sm:py-8" />
                 <MonacoEditor v-else v-model="patchValue" :read-only="true" class="overflow-hidden border-0" />
             </div>
         </div>

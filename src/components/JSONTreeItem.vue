@@ -56,7 +56,7 @@
         <div v-if="data.type === 'object' || data.type === 'array'" class="expendable">
             <button :aria-expanded="open ? 'true' : 'false'" class="data-key" @click.stop="toggleOpen">
                 <span v-if="open" class="arrow">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="size-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path
                             clip-rule="evenodd"
                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -64,14 +64,14 @@
                     </svg>
                 </span>
                 <span v-else class="arrow">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="size-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path
                             clip-rule="evenodd"
                             d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                             fill-rule="evenodd" />
                     </svg>
                 </span>
-                <span class="font-semibold key">{{ data.key }}:</span>
+                <span class="key font-semibold">{{ data.key }}:</span>
                 <span class="properties">
                     [{{ data.length }}]
                     <span class="italic">({{ data.type }})</span>
@@ -80,17 +80,17 @@
             <JSONTreeItem v-for="child in data.children" v-show="open" :key="getKey(child)" :data="child" :max-depth="maxDepth" />
         </div>
         <div v-if="data.type === 'value'">
-            <span class="font-normal value-key">{{ data.key }}</span>
+            <span class="value-key font-normal">{{ data.key }}</span>
             <span class="dark:text-white">:</span>
             <span v-if="data.key === 'op'">
-                <span v-if="data.value === 'add'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-green-700 align-middle bg-green-200 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <span v-if="data.value === 'add'" class="ml-1 inline-flex h-[16px] items-center rounded bg-green-200 px-[6px] align-middle text-xs font-semibold text-green-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                     <span class="pb-[1px]">{{ data.value }}</span>
                 </span>
-                <span v-if="data.value === 'remove'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-red-700 align-middle bg-red-200 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <span v-if="data.value === 'remove'" class="ml-1 inline-flex h-[16px] items-center rounded bg-red-200 px-[6px] align-middle text-xs font-semibold text-red-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -100,8 +100,8 @@
                 </span>
                 <span
                     v-if="data.value === 'replace'"
-                    class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-orange-700 align-middle bg-orange-200 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    class="ml-1 inline-flex h-[16px] items-center rounded bg-orange-200 px-[6px] align-middle text-xs font-semibold text-orange-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -111,20 +111,20 @@
                 </span>
                 <span
                     v-if="data.value === 'test'"
-                    class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-purple-700 align-middle bg-purple-200 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    class="ml-1 inline-flex h-[16px] items-center rounded bg-purple-200 px-[6px] align-middle text-xs font-semibold text-purple-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span class="pb-[1px]">{{ data.value }}</span>
                 </span>
-                <span v-if="data.value === 'move'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-blue-700 align-middle bg-blue-200 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <span v-if="data.value === 'move'" class="ml-1 inline-flex h-[16px] items-center rounded bg-blue-200 px-[6px] align-middle text-xs font-semibold text-blue-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                     </svg>
                     <span class="pb-[1px]">{{ data.value }}</span>
                 </span>
-                <span v-if="data.value === 'copy'" class="inline-flex items-center px-[6px] ml-1 h-[16px] text-xs font-semibold text-blue-700 align-middle bg-blue-200 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <span v-if="data.value === 'copy'" class="ml-1 inline-flex h-[16px] items-center rounded bg-blue-200 px-[6px] align-middle text-xs font-semibold text-blue-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-[3px] size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"

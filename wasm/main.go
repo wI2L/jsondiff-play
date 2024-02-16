@@ -1,3 +1,5 @@
+//go:build js && wasm
+
 package main
 
 import (
@@ -31,7 +33,7 @@ func (r ret) toJSValue() js.Value {
 }
 
 func compare(_ js.Value, args []js.Value) interface{} {
-	if len(args) != 6 {
+	if len(args) != 7 {
 		return ret{Error: "invalid number of arguments", Patch: ""}.toJSValue()
 	}
 	source := args[0].String()
@@ -41,6 +43,7 @@ func compare(_ js.Value, args []js.Value) interface{} {
 	factorize := args[3].Bool()
 	rationalize := args[4].Bool()
 	equivalent := args[5].Bool()
+	lcs := args[6].Bool()
 
 	var opts []jsondiff.Option
 	if invertible {
@@ -49,13 +52,16 @@ func compare(_ js.Value, args []js.Value) interface{} {
 	if factorize {
 		opts = append(opts, jsondiff.Factorize())
 	}
-	if rationalize {
+	if rationalize && !lcs {
 		opts = append(opts, jsondiff.Rationalize())
 	}
 	if equivalent {
 		opts = append(opts, jsondiff.Equivalent())
 	}
-	patch, err := jsondiff.CompareJSONOpts([]byte(source), []byte(target), opts...)
+	if lcs {
+		opts = append(opts, jsondiff.LCS())
+	}
+	patch, err := jsondiff.CompareJSON([]byte(source), []byte(target), opts...)
 	if err != nil {
 		return ret{Error: err.Error(), Patch: ""}.toJSValue()
 	}

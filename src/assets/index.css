@@ -3,19 +3,22 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Lato';
+    font-family: Lato;
     font-style: normal;
     font-weight: 400;
-    src: url('../fonts/lato-v22-latin-regular.eot');
-    src: local(''),
-        url('../fonts/lato-v22-latin-regular.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/lato-v22-latin-regular.woff2') format('woff2'),
-        url('../fonts/lato-v22-latin-regular.woff') format('woff'),
-        url('../fonts/lato-v22-latin-regular.ttf') format('truetype'),
-        url('../fonts/lato-v22-latin-regular.svg#Lato') format('svg');
+    src: url("../fonts/lato-v22-latin-regular.eot");
+    src:
+        local(""),
+        url("../fonts/lato-v22-latin-regular.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/lato-v22-latin-regular.woff2") format("woff2"),
+        url("../fonts/lato-v22-latin-regular.woff") format("woff"),
+        url("../fonts/lato-v22-latin-regular.ttf") format("truetype"),
+        url("../fonts/lato-v22-latin-regular.svg#Lato") format("svg");
 }
 
-body, html, #app {
+body,
+html,
+#app {
     /*
     * https://bugs.chromium.org/p/chromium/issues/detail?id=844848#c4
     */
