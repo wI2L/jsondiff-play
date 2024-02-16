@@ -1,6 +1,6 @@
 # `jsondiff` Playground
 
-A playground for [**wI2L/jsondiff**](https://github.com/wI2L/jsondiff). Supports *most of* the [options](https://github.com/wI2L/jsondiff#diff-options).
+A playground for [**wI2L/jsondiff**](https://github.com/wI2L/jsondiff). Supports *most of* the [options](https://github.com/wI2L/jsondiff?tab=readme-ov-file#options).
 
 ![Preview](./images/split.png)
 
