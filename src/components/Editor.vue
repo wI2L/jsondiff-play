@@ -124,7 +124,8 @@
 
                 background-color: #94A3B8;
                 width: 4px;
-                height: 200px;
+                max-height: 200px;
+                height: 50%;
                 content: "";
                 position: absolute;
                 left: 50%;
@@ -177,7 +178,8 @@
 
                 background-color: #94A3B8;
                 height: 4px;
-                width: 200px;
+                max-width: 200px;
+                width: 50%;
                 content: "";
                 position: absolute;
                 left: 50%;
