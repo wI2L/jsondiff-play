@@ -52,7 +52,7 @@ func compare(_ js.Value, args []js.Value) interface{} {
 	if factorize {
 		opts = append(opts, jsondiff.Factorize())
 	}
-	if rationalize && !lcs {
+	if rationalize {
 		opts = append(opts, jsondiff.Rationalize())
 	}
 	if equivalent {

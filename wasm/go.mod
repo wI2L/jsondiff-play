@@ -4,7 +4,7 @@ go 1.21
 
 toolchain go1.21.6
 
-require github.com/wI2L/jsondiff v0.5.0
+require github.com/wI2L/jsondiff v0.5.1
 
 require (
 	github.com/tidwall/gjson v1.17.1 // indirect

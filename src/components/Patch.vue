@@ -90,7 +90,7 @@
     <div class="flex size-full flex-col">
         <div class="flex min-h-fit w-full shrink-0 flex-row items-center overflow-hidden border-b-2 border-b-[#eeeeed] px-6 py-4 text-xs dark:border-b-[#1f2834] dark:text-white mobile:justify-end mobile:space-x-4 mobile:space-y-0">
             <label class="text-center" title="Longest Common Subsequences">LCS
-                <OptionToggle v-model="options.lcs" class="ml-1 align-middle" :disabled="options.rationalize" :class="{'opacity-50 hover:cursor-not-allowed': options.rationalize}" />
+                <OptionToggle v-model="options.lcs" class="ml-1 align-middle" />
             </label>
             <label class="text-center">Invertible
                 <OptionToggle v-model="options.invertible" class="ml-1 align-middle" />
@@ -99,7 +99,7 @@
                 <OptionToggle v-model="options.factorize" class="ml-1 align-middle" />
             </label>
             <label class="text-center">Rationalize
-                <OptionToggle v-model="options.rationalize" class="ml-1 align-middle" :disabled="options.lcs" :class="{'opacity-50 hover:cursor-not-allowed': options.lcs}" />
+                <OptionToggle v-model="options.rationalize" class="ml-1 align-middle" />
             </label>
             <label class="text-center">Equivalent
                 <OptionToggle v-model="options.equivalent" class="ml-1 align-middle" />
